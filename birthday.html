@@ -1,152 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Birthday 🎉 — Animated Card</title>
-  <style>
-    :root{
-      --bg1:#FFDEE9;
-      --bg2:#B5FFFC;
-      --card:#ffffffee;
-      --accent:#ff5e7e;
-      --shadow: 0 10px 30px rgba(0,0,0,0.12);
-      --glass: rgba(255,255,255,0.6);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: linear-gradient(135deg,var(--bg1),var(--bg2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      color:#222;
-    }
+<!DOCTYPE html>
+<html>
+  <head>
+<title>Dev</title>
+    <title>🎂 Happy Birthday 🎂</title>
+  </head>
+  <body bgcolor="lightpink">
+    <center>
+      <h1 style="color:purple;">🎉🎈 Happy Birthday! 🎈🎉</h1>
 
-    canvas#confetti{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:10;
-    }
+      <marquee behavior="alternate" scrollamount="10" direction="left">
+        <h2 style="color:deeppink;">💖 Wishing You a Day Full of Love, Joy & Surprises! 💖</h2>
+      </marquee>
 
-    .card{
-      width:min(920px,95vw);
-      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
-      border-radius:18px;
-      padding:28px;
-      box-shadow: var(--shadow);
-      position:relative;
-      z-index:20;
-      display:flex;
-      gap:20px;
-      align-items:center;
-      justify-content:space-between;
-    }
+      <hr width="60%" color="violet">
 
-    .left{flex:1 1 420px;min-width:260px;}
-    h1{font-size:clamp(26px,4vw,38px);margin:0 0 8px 0;}
-    p.lead{margin:0 0 18px 0;color:#444;}
-    .typebox{font-weight:700;font-size:clamp(18px,2.1vw,26px);color:var(--accent);white-space:nowrap;min-height:1.2em;}
-    .controls{display:flex;gap:8px;align-items:center;margin-top:14px}
-    .controls input[type="text"]{padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);min-width:160px;}
-    button{padding:9px 12px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#ff9a8b);color:white;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(255,90,120,0.18);}
-    button.secondary{background:transparent;color:var(--accent);box-shadow:none;border:1px solid rgba(0,0,0,0.06)}
-    .right{width:320px;display:flex;align-items:center;justify-content:center;position:relative;min-height:240px;}
-    .balloon{position:absolute;bottom:8px;left:14px;width:82px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;transform-origin:center bottom;animation:floatUp 6s infinite ease-in-out;}
-    .balloon:after{content:"";position:absolute;width:2px;height:70px;background:rgba(0,0,0,0.08);bottom:-66px}
-    .balloon.red{background:linear-gradient(160deg,#ff7b9c,#ff5e7e);left:0;animation-delay:0s}
-    .balloon.yellow{background:linear-gradient(160deg,#ffd27a,#ffb86b);left:70px;width:70px;height:94px;animation-delay:0.6s}
-    .balloon.blue{background:linear-gradient(160deg,#79d1ff,#5bc0ff);left:140px;width:78px;height:104px;animation-delay:1.1s}
-    @keyframes floatUp{0%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-22px) rotate(6deg)}100%{transform:translateY(0) rotate(-4deg)}}
-    .cake{width:220px;height:180px;display:flex;align-items:center;justify-content:center;position:relative;}
-    .cake .plate{position:absolute;bottom:0;width:260px;height:18px;background:linear-gradient(90deg,#eee,#ddd);border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-    .cursor{display:inline-block;width:8px;height:1.12em;background:var(--accent);margin-left:8px;vertical-align:middle;animation:blink 1s steps(2,end) infinite}
-    @keyframes blink{50%{opacity:0}}
-    .footer{font-size:12px;color:#666;margin-top:12px}
-    @media (max-width:880px){.card{flex-direction:column;align-items:stretch}.right{order:-1;width:100%;min-height:160px}}
-  </style>
-</head>
-<body>
-  <canvas id="confetti"></canvas>
-  <div class="card">
-    <div class="left">
-      <h1>Happy Birthday <span id="person">Friend</span>!</h1>
-      <p class="lead">Send warm, animated wishes — personalize the name and press <strong>Surprise</strong> for confetti.</p>
-      <div class="controls">
-        <input id="nameInput" type="text" placeholder="Type a name (e.g. Priya)" value="Friend" />
-        <button id="surpriseBtn">Surprise 🎉</button>
-        <button id="toggleBalloons" class="secondary">Toggle Balloons</button>
-      </div>
-      <div class="footer">Tip: Click <em>Surprise</em> again to stop confetti.</div>
-    </div>
+      <marquee behavior="scroll" direction="up" height="120" scrollamount="3">
+        <p style="color:blue; font-size:20px;">
+          🎂 May your birthday be as special as you are! 🎂<br>
+          🌟 May happiness surround you today and always! 🌟<br>
+          💐 Have an amazing year ahead! 💐
+        </p>
+      </marquee>
 
-    <div class="right">
-      <div class="cake">
-        <svg viewBox="0 0 220 180" width="220" height="180">
-          <ellipse cx="110" cy="162" rx="100" ry="8" fill="#eee" />
-          <rect x="30" y="90" width="160" height="56" rx="10" fill="#ffdcba" />
-          <path d="M30 90 q30 -20 50 0 t50 0 t30 0 v12 h-160z" fill="#fff7f0" opacity="0.95"/>
-          <path d="M40 110 c8 -12 20 -8 28 0 s20 12 32 0 24 -14 36 0" fill="#fff0f5" opacity="0.9"/>
-          <rect x="58" y="60" width="104" height="44" rx="10" fill="#ff9fb8" />
-          <rect x="106" y="14" width="8" height="46" rx="2" fill="#fff" />
-          <g id="flame" transform="translate(110,12)">
-            <path d="M0 0 C4 -8 10 -6 6 -14 C2 -22 -6 -18 0 -8" fill="#ffd86b" />
-            <path d="M0 -4 C2 -8 6 -7 4 -11 C1 -15 -2 -13 0 -10" fill="#ff9a4d" />
-          </g>
-        </svg>
-      </div>
-      <div class="balloon red"></div>
-      <div class="balloon yellow"></div>
-      <div class="balloon blue"></div>
-    </div>
-  </div>
+      <marquee behavior="alternate" scrollamount="15" direction="right">
+        🎁 🎉 🎈 🎂 🎉 🎁 🎈 🎂 🎉 🎈 🎁
+      </marquee>
 
-  <script>
-    const nameInput=document.getElementById('nameInput');
-    const person=document.getElementById('person');
-    nameInput.addEventListener('input',()=>{person.textContent=nameInput.value||'Friend';});
+      <h3 style="color:darkgreen;">With Best Wishes, 💕 Your Friend 💕</h3>
 
-    const balloons=document.querySelectorAll('.balloon');
-    const toggleBalloonsBtn=document.getElementById('toggleBalloons');
-    let balloonsVisible=true;
-    toggleBalloonsBtn.addEventListener('click',()=>{
-      balloonsVisible=!balloonsVisible;
-      balloons.forEach(b=>b.style.display=balloonsVisible?'block':'none');
-      toggleBalloonsBtn.textContent=balloonsVisible?'Toggle Balloons':'Show Balloons';
-    });
-
-    const canvas=document.getElementById('confetti');
-    const ctx=canvas.getContext('2d');
-    let W=canvas.width=window.innerWidth;
-    let H=canvas.height=window.innerHeight;
-    window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;});
-
-    function random(min,max){return Math.random()*(max-min)+min;}
-    class Confetto{
-      constructor(){this.reset();}
-      reset(){this.x=random(0,W);this.y=random(-H,-10);this.size=random(5,10);this.speed=random(2,5);this.color=`hsl(${random(0,360)},80%,60%)`;this.angle=random(0,Math.PI*2);this.spin=random(-0.05,0.05);}
-      update(){this.y+=this.speed;this.angle+=this.spin;if(this.y>H)this.reset();}
-      draw(){ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle);ctx.fillStyle=this.color;ctx.fillRect(-this.size/2,-this.size/2,this.size,this.size);ctx.restore();}
-    }
-
-    const confetti=Array.from({length:120},()=>new Confetto());
-    let running=false;let animationId;
-    function animate(){ctx.clearRect(0,0,W,H);confetti.forEach(c=>{c.update();c.draw();});animationId=requestAnimationFrame(animate);}
-
-    const surpriseBtn=document.getElementById('surpriseBtn');
-    surpriseBtn.addEventListener('click',()=>{
-      running=!running;
-      if(running){animate();surpriseBtn.textContent='Stop 🎈';}
-      else{cancelAnimationFrame(animationId);ctx.clearRect(0,0,W,H);surpriseBtn.textContent='Surprise 🎉';}
-    });
-
-    const flame=document.getElementById('flame');
-    let flameAnim;
-    (function flicker(){const scale=0.92+Math.random()*0.18;flame.setAttribute('transform',`translate(110,${12+Math.random()*4-2}) scale(${scale})`);clearTimeout(flameAnim);flameAnim=setTimeout(flicker,120+Math.random()*200);})();
-  </script>
-</body>
+      <marquee behavior="alternate" scrollamount="8" direction="left">
+        🌈✨🎊 Happy Birthday Once Again! 🎊✨🌈
+      </marquee>
+    </center>
+  </body>
 </html>
