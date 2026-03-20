@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Reminder Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%, #667eea 200%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+            animation: slideInRight 0.8s ease-out 0.2s backwards;
+        }
+
+        .form-section {
+            padding: 30px;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .form-group:focus-within label {
+            color: #667eea;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .reminders-section {
+            padding: 0 30px 30px 30px;
+            animation: fadeInUp 1s ease-out 0.5s backwards;
+        }
+
+        .reminders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .reminders-header h2 {
+            color: #333;
+            font-size: 20px;
+        }
+
+        .reminder-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: slideInRight 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reminder-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .reminder-card:hover::before {
+            left: 100%;
+        }
+
+        .reminder-card:hover {
+            transform: translateX(5px) scale(1.02);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+            border-left-width: 6px;
+        }
+
+        .reminder-info h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .reminder-card:hover .reminder-info h3 {
+            color: #667eea;
+        }
+
+        .reminder-details {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #ee5a6f 0%, #ff758c 100%);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .status-message {
+            padding: 12px;
+            margin: 20px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .form-section, .reminders-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💊 Medicine Reminder Pro</h1>
+            <p>Never forget your medicine again</p>
+        </div>
+
+        <div id="statusMessage"></div>
+
+        <div class="form-section">
+            <form id="medicineForm">
+                <div class="form-group">
+                    <label for="medicineName">Medicine Name</label>
+                    <input type="text" id="medicineName" placeholder="e.g., Aspirin, Vitamin D" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dosage">Dosage</label>
+                    <input type="text" id="dosage" placeholder="e.g., 1 tablet, 5ml" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" id="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="frequency">Frequency</label>
+                    <select id="frequency" required>
+                        <option value="">Select frequency</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">Add Reminder</button>
+            </form>
+        </div>
+
+        <div class="reminders-section">
+            <div class="reminders-header">
+                <h2>Your Reminders</h2>
+            </div>
+            <div id="remindersList"></div>
+        </div>
+    </div>
+
+    <script>
+        const reminders = [];
+
+        function showMessage(msg, type) {
+            const msgDiv = document.getElementById('statusMessage');
+            msgDiv.className = `status-message ${type}`;
+            msgDiv.textContent = msg;
+            msgDiv.style.display = 'block';
+            setTimeout(() => {
+                msgDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function createGoogleCalendarLink(reminder) {
+            const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+            const title = encodeURIComponent(`💊 ${reminder.name} - ${reminder.dosage}`);
+            const details = encodeURIComponent(`Take ${reminder.dosage} of ${reminder.name}`);
+            
+            const [hours, minutes] = reminder.time.split(':');
+            const now = new Date();
+            const eventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+            
+            const startTime = eventDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            eventDate.setHours(eventDate.getHours() + 1);
+            const endTime = eventDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            
+            let recurrence = '';
+            if (reminder.frequency === 'daily') recurrence = 'RRULE:FREQ=DAILY';
+            else if (reminder.frequency === 'weekly') recurrence = 'RRULE:FREQ=WEEKLY';
+            else if (reminder.frequency === 'monthly') recurrence = 'RRULE:FREQ=MONTHLY';
+            
+            return `${baseUrl}&text=${title}&details=${details}&dates=${startTime}/${endTime}&recur=${recurrence}`;
+        }
+
+        function renderReminders() {
+            const list = document.getElementById('remindersList');
+            
+            if (reminders.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state" style="animation: fadeInUp 0.5s ease-out;">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10z"/>
+                        </svg>
+                        <p>No reminders yet. Add your first medicine reminder!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = reminders.map((r, i) => `
+                <div class="reminder-card" style="animation-delay: ${i * 0.1}s;">
+                    <div class="reminder-info">
+                        <h3>💊 ${r.name}</h3>
+                        <div class="reminder-details">
+                            ${r.dosage} • ${r.time} • ${r.frequency}
+                        </div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteReminder(${i})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('medicineForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const reminder = {
+                name: document.getElementById('medicineName').value,
+                dosage: document.getElementById('dosage').value,
+                time: document.getElementById('time').value,
+                frequency: document.getElementById('frequency').value
+            };
+
+            reminders.push(reminder);
+            
+            const calendarLink = createGoogleCalendarLink(reminder);
+            window.open(calendarLink, '_blank');
+            
+            showMessage('Reminder added! Google Calendar opened in new tab.', 'success');
+            
+            this.reset();
+            renderReminders();
+        });
+
+        function deleteReminder(index) {
+            if (confirm('Are you sure you want to delete this reminder?')) {
+                reminders.splice(index, 1);
+                renderReminders();
+                showMessage('Reminder deleted successfully.', 'success');
+            }
+        }
+
+        renderReminders();
+    </script>
+</body>
+</html>
